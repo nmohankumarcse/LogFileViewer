@@ -75,6 +75,9 @@ class JsonViewerViewController: UIViewController{
                 if let res = result as? Dictionary<String, Any>{
                     jsonViewParams.filters = [String](res.keys.sorted())
                 }
+                else {
+                    jsonViewParams.filters = ["\(result)"]
+                }
             }
             if jsonViewParams.sortFilters.count == 0{
                 autoSort()
@@ -444,6 +447,10 @@ extension JsonViewerViewController:UITableViewDelegate,UITableViewDataSource{
                 }
                 cell?.textLabel?.text = key
             }
+        }
+        else {
+            cell?.textLabel?.text = "\(result)"
+            cell?.detailTextLabel?.text = ""
         }
         cell?.backgroundColor = jsonViewParams.color
         cell?.contentView.backgroundColor = jsonViewParams.color

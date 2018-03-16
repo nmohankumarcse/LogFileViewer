@@ -51,7 +51,7 @@ class JsonCollectionViewController: UIViewController ,UICollectionViewDelegate,U
                             var newJsonParams = pJsonViewParams
                             var parent = ""
                             if pJsonViewParams.list.count > 1{
-                                parent = "\(pJsonViewParams.heading)(\(section+1)/\(pJsonViewParams.list.count))"
+                                parent = "\(pJsonViewParams.heading)(\(section+1)/\(pJsonViewParams.list.count))-\(key)"
                             }
                             else{
                                parent = "\(key)"
@@ -327,7 +327,7 @@ class JsonCollectionViewController: UIViewController ,UICollectionViewDelegate,U
         let existing =  jsonViewParamsList[jsonViewParams.pageIndex]
         if existing.list.count > 1{
                 let key = jsonViewParams.filters[(jsonViewParams.selectedIndexPath?.row)!]
-            parent = "\(key)(\((jsonViewParams.selectedIndexPath?.section)!+1)/\(existing.list.count))"
+            parent = "\(jsonViewParams.parent)(\((jsonViewParams.selectedIndexPath?.section)!+1)/\(existing.list.count))-\(key)"
         }
         else{
             parent = "\(jsonViewParams.heading)"
