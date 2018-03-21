@@ -28,24 +28,152 @@ class JsonViewerViewController: UIViewController{
         case  Filter
         case  Sort
     }
+    
+    enum ViewType{
+        case Table
+        case Text
+        case Tree
+    }
     var didSelectRowAt :((JsonViewParams)->())?
     var handlerClose :((_ index : Int,_ includeParent: Bool)->())?
     var filterType : FilterType = .Filter
+    var tableData : TableTreeNode?
+    var selectedData = [TableTreeNode]()
     @IBOutlet weak var descriptorLabel: UITextView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var treeTableView: UITableView!
     @IBOutlet weak var filterContainer: UIView!
     @IBOutlet weak var isExpandedButtonView: UIView!
     @IBOutlet weak var isExpandedButton: UIButton!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var deleteSpinner: UIActivityIndicatorView!
     @IBOutlet weak var optionsButton: UIButton!
-    
+    @IBOutlet weak var jsonTextView: UITextView!
+    var viewType : ViewType = .Table
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 //        self.descriptorLabel
         setUpUI()
+        let node = TableTreeNode.init(value: jsonViewParams.heading, level: 0, index: 0, isExpanded: true)
+        tableData = generateTreeNode(pNode: node, tjsonViewParam: jsonViewParams)
+        refreshTableData()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    
+    func displayJsonTextView(spacing : String, tjsonViewParam : JsonViewParams)->String{
+        var displayString = spacing
+        for (listCount,list) in tjsonViewParam.list.enumerated(){
+            if let res = list as? Dictionary<String, Any>{
+                displayString.append("\n"+spacing+"{")
+                for(_,key) in res.keys.enumerated(){
+                    if let ary = res[key] as? Array<Any>{
+                        if ary.count > 0{
+                            var newJsonParams = tjsonViewParam
+                            newJsonParams.heading = "\(key)"
+                            newJsonParams.list = ary
+                            let newSpacing = "\(spacing)\t"
+                            displayString.append("\n\(spacing)\(key) :\n\(spacing)[\(displayJsonTextView(spacing: newSpacing, tjsonViewParam: newJsonParams))\n\(spacing)]")
+                        }
+                    }
+                    else if let dict = res[key] as? Dictionary<String,Any>{
+                        if dict.collectionTypes().count > 0{
+                            var newJsonParams = tjsonViewParam
+                            newJsonParams.heading = "\(key)"
+                            newJsonParams.list = [dict]
+                            let newSpacing = "\(spacing)\t"
+                            displayString.append("\n\(spacing)\(key) :\(displayJsonTextView(spacing: newSpacing, tjsonViewParam: newJsonParams))")
+                        }
+                        else{
+                            displayString.append(dict.map{"\n\(spacing)\($0.key):\($0.value)"}.joined(separator: "\n"))
+                        }
+                    }
+                    else{
+                        displayString.append("\n\(spacing)\(key) : \(res[key] ?? "")")
+                    }
+                }
+                displayString.append("\n"+spacing+"}")
+                if listCount != tjsonViewParam.list.count-1{
+                    displayString.append(",")
+                }
+            }
+            else {
+                if listCount == 0{
+                    displayString.append("\n"+spacing+"{")
+                }
+                displayString.append("\n"+spacing+"\(list)")
+                if listCount != tjsonViewParam.list.count-1{
+                    displayString.append(",")
+                }
+                if listCount == tjsonViewParam.list.count-1{
+                    displayString.append("\n"+spacing+"}")
+                }
+            }
+        }
+        return displayString
+    }
+    
+    
+    func generateTreeNode(pNode : TableTreeNode, tjsonViewParam : JsonViewParams)->TableTreeNode{
+        for (listCount,list) in tjsonViewParam.list.enumerated(){
+            let parentNode = TableTreeNode.init(value: "\(listCount)", level: pNode.level+1, index: listCount, isExpanded: true)
+            pNode.add(child: parentNode)
+            if let res = list as? Dictionary<String, Any>{
+                for(_,key) in res.keys.enumerated(){
+                    if let ary = res[key] as? Array<Any>{
+                        if ary.count > 0{
+                            var newJsonParams = tjsonViewParam
+                            newJsonParams.heading = "\(key)"
+                            newJsonParams.list = ary
+                            let node = TableTreeNode.init(value: "\(key)", level: parentNode.level+1, index: listCount, isExpanded: true)
+                            parentNode.add(child: node)
+                            let _ = generateTreeNode(pNode: node, tjsonViewParam: newJsonParams)
+                        }
+                    }
+                    else if let dict = res[key] as? Dictionary<String,Any>{
+                        if dict.collectionTypes().count > 0{
+                            var newJsonParams = tjsonViewParam
+                            newJsonParams.heading = "\(key)"
+                            newJsonParams.list = [dict]
+                            let node = TableTreeNode.init(value: "\(key)", level: parentNode.level+1, index: listCount, isExpanded: true)
+                            parentNode.add(child: node)
+                            let _ = generateTreeNode(pNode: node, tjsonViewParam: newJsonParams)
+                        }
+                        else{
+                           let text = dict.map{"\($0.key):\($0.value)"}.joined(separator: "\n")
+                            let node =  TableTreeNode.init(value: text, level: parentNode.level+1, index: listCount, isExpanded: true)
+                            parentNode.add(child: node)
+                        }
+                    }
+                    else{
+                       let node =  TableTreeNode.init(value: "\(key) : \(res[key] ?? "")", level: parentNode.level+1, index: listCount, isExpanded: true)
+                        parentNode.add(child: node)
+                    }
+                }
+            }
+            else {
+                let node =  TableTreeNode.init(value: "\(list)", level: parentNode.level+1, index: listCount, isExpanded: true)
+                parentNode.add(child: node)
+            }
+        }
+        return pNode
+    }
+    
+    func showSelectedView(){
+        switch viewType {
+        case .Table:
+            self.jsonTextView.isHidden = true
+            self.treeTableView.isHidden = true
+        case .Text:
+            self.jsonTextView.text = displayJsonTextView(spacing: "\t", tjsonViewParam: jsonViewParams)
+            self.jsonTextView.isHidden = false
+            self.treeTableView.isHidden = true
+        case .Tree :
+            self.jsonTextView.isHidden = true
+            self.treeTableView.isHidden = false
+        }
     }
     
     func setUpUI(){
@@ -141,6 +269,7 @@ class JsonViewerViewController: UIViewController{
     
     func shareJson() {
         let data = try! JSONSerialization.data(withJSONObject: jsonViewParams.list, options: [])
+//        let data = displayJsonTextView(spacing: "\t", tjsonViewParam: jsonViewParams).data(using: .utf8)
         
         do {
             guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
@@ -352,40 +481,56 @@ extension JsonViewerViewController{//Fiters & Sort
 
 extension JsonViewerViewController:UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
-        return jsonViewParams.list.count
+        if tableView == treeTableView{
+            return 1
+        }
+        else{
+            return jsonViewParams.list.count
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !jsonViewParams.collapseSectionArray.contains(section){
-            return jsonViewParams.filters.count
+        if tableView == treeTableView{
+            return selectedData.count
         }
-        return 0
+        else{
+            if !jsonViewParams.collapseSectionArray.contains(section){
+                return jsonViewParams.filters.count
+            }
+            return 0
+        }
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let result = jsonViewParams.list[indexPath.section]
-        if let res = result as? Dictionary<String, Any>{
-            if jsonViewParams.filters.count >= indexPath.row{
-                let key = jsonViewParams.filters[indexPath.row]
-                let value = res[key]
-                jsonViewParams.selectedIndexPath = indexPath
-                if let ary = value as? Array<Any>{
-                    var jsonViewCopy = self.jsonViewParams
-                    jsonViewCopy.heading = "\(key)"
-                    jsonViewCopy.list = ary
-                    self.didSelectRowAt!(jsonViewCopy)
-                }
-                else if let dict = value as? Dictionary<String,Any> {
-                    if dict.collectionTypes().count > 0{
+        if tableView == treeTableView{
+            let node = selectedData[indexPath.row]
+            expandOrCollapse(node: node)
+        }
+        else{
+            let result = jsonViewParams.list[indexPath.section]
+            if let res = result as? Dictionary<String, Any>{
+                if jsonViewParams.filters.count >= indexPath.row{
+                    let key = jsonViewParams.filters[indexPath.row]
+                    let value = res[key]
+                    jsonViewParams.selectedIndexPath = indexPath
+                    if let ary = value as? Array<Any>{
                         var jsonViewCopy = self.jsonViewParams
                         jsonViewCopy.heading = "\(key)"
-                        jsonViewCopy.list = [dict]
+                        jsonViewCopy.list = ary
                         self.didSelectRowAt!(jsonViewCopy)
                     }
-                }
-                else{
-                    self.tableView.reloadData()
+                    else if let dict = value as? Dictionary<String,Any> {
+                        if dict.collectionTypes().count > 0{
+                            var jsonViewCopy = self.jsonViewParams
+                            jsonViewCopy.heading = "\(key)"
+                            jsonViewCopy.list = [dict]
+                            self.didSelectRowAt!(jsonViewCopy)
+                        }
+                    }
+                    else{
+                        self.tableView.reloadData()
+                    }
                 }
             }
         }
@@ -396,6 +541,7 @@ extension JsonViewerViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "headerCell") as! JsonViewerHeaderTableViewCell
         cell.index = section
         cell.headerTitle.text = "\(jsonViewParams.heading) - (\(section+1)/\(jsonViewParams.list.count))"
@@ -414,57 +560,100 @@ extension JsonViewerViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 45
+        if tableView != treeTableView{
+            return 45
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let result = jsonViewParams.list[indexPath.section]
-        var cell = tableView.dequeueReusableCell(withIdentifier: "valuecell")
-        if let res = result as? Dictionary<String, Any>{
-            if jsonViewParams.filters.count > indexPath.row{
-                let key = jsonViewParams.filters[indexPath.row]
-                let value = res[key]
-                cell?.accessoryType = .none
-                if let val = value as? String{
-                    cell?.detailTextLabel?.text = val
-                }
-                else if let ary = value as? Array<Any>{
-                    cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-                    cell?.accessoryType = .disclosureIndicator
-                    cell?.detailTextLabel?.text = "\(key) (\(ary.count))"
-                }
-                else if let dict = value as? Dictionary<String,Any> {
-                    cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-                    cell?.accessoryType = .disclosureIndicator
-                    if dict.collectionTypes().count == 0{
-                        cell?.detailTextLabel?.text = dict.map{"\($0.key):\($0.value)"}.joined(separator: "\n")
-                    }else{
-                        cell?.detailTextLabel?.text = dict.map{"\($0.key): Dictionary"}[0]
-                    }
-                }
-                else{
-                    cell?.detailTextLabel?.text = "\(value ?? 0)"
-                }
-                cell?.textLabel?.text = key
+        if tableView == treeTableView{
+            let cell  = tableView.dequeueReusableCell(withIdentifier: "cell") as! ExpandCollapseTableViewCell
+            let node = selectedData[indexPath.row]
+            cell.accessoryImage.isHidden = true
+            if node.children.count > 0 {
+                cell.accessoryImage.isHidden = false
             }
+            cell.accessoryImage.image = #imageLiteral(resourceName: "plus")
+            if node.isExpanded {
+                cell.accessoryImage.image = #imageLiteral(resourceName: "minus")
+            }
+            
+            cell.backgroundColor = UIColor.white
+            cell.titleLabel.text = node.value
+            cell.labelLeadingConstraint.constant = CGFloat(5 + node.level*20)
+            return cell
         }
-        else {
-            cell?.textLabel?.text = "\(result)"
-            cell?.detailTextLabel?.text = ""
+        else{
+            let result = jsonViewParams.list[indexPath.section]
+            var cell = tableView.dequeueReusableCell(withIdentifier: "valuecell")
+            if let res = result as? Dictionary<String, Any>{
+                if jsonViewParams.filters.count > indexPath.row{
+                    let key = jsonViewParams.filters[indexPath.row]
+                    let value = res[key]
+                    cell?.accessoryType = .none
+                    if let val = value as? String{
+                        cell?.detailTextLabel?.text = val
+                    }
+                    else if let ary = value as? Array<Any>{
+                        cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+                        cell?.accessoryType = .disclosureIndicator
+                        cell?.detailTextLabel?.text = "\(key) (\(ary.count))"
+                    }
+                    else if let dict = value as? Dictionary<String,Any> {
+                        cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+                        cell?.accessoryType = .disclosureIndicator
+                        if dict.collectionTypes().count == 0{
+                            cell?.detailTextLabel?.text = dict.map{"\($0.key):\($0.value)"}.joined(separator: "\n")
+                        }else{
+                            cell?.detailTextLabel?.text = dict.map{"\($0.key): Dictionary"}[0]
+                        }
+                    }
+                    else{
+                        cell?.detailTextLabel?.text = "\(value ?? 0)"
+                    }
+                    cell?.textLabel?.text = key
+                }
+            }
+            else {
+                cell?.textLabel?.text = "\(result)"
+                cell?.detailTextLabel?.text = ""
+            }
+            cell?.backgroundColor = jsonViewParams.color
+            cell?.contentView.backgroundColor = jsonViewParams.color
+            if indexPath == jsonViewParams.selectedIndexPath{
+                cell?.backgroundColor = UIColor.lightGray
+            }
+            //            cell?.selectionStyle = .none
+            return cell!
         }
-        cell?.backgroundColor = jsonViewParams.color
-        cell?.contentView.backgroundColor = jsonViewParams.color
-        if indexPath == jsonViewParams.selectedIndexPath{
-            cell?.backgroundColor = UIColor.lightGray
-        }
-        //            cell?.selectionStyle = .none
-        return cell!
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == self.tableView{
             self.filterContainer.isHidden = true
         }
+    }
+    
+    func expandOrCollapse(node : TableTreeNode){
+        node.isExpanded = !node.isExpanded
+        refreshTableData()
+    }
+    
+    func refreshTableData(){
+        self.selectedData = []
+        appendDataToTablelistFromArray(list: [self.tableData!])
+    }
+    
+    func appendDataToTablelistFromArray(list : [TableTreeNode]){
+        for (_,node) in list.enumerated(){
+            self.selectedData.append(node)
+            if node.isExpanded{
+                appendDataToTablelistFromArray(list: node.children)
+            }
+        }
+        self.treeTableView.reloadData()
+        
     }
 }
 

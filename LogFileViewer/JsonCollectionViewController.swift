@@ -10,6 +10,7 @@ class JsonCollectionViewController: UIViewController ,UICollectionViewDelegate,U
     
     let colors =  [#colorLiteral(red: 0.7798358798, green: 0.7913441062, blue: 0.8411058784, alpha: 1),#colorLiteral(red: 0.8004157031, green: 0.8862745166, blue: 0.7694299163, alpha: 1),#colorLiteral(red: 0.8072711229, green: 0.8187190294, blue: 0.8726261258, alpha: 1),#colorLiteral(red: 0.966617167, green: 0.8771314025, blue: 0.9303179383, alpha: 1),#colorLiteral(red: 0.8907834888, green: 0.8533425927, blue: 0.931820631, alpha: 1),#colorLiteral(red: 0.9168012142, green: 0.9452653527, blue: 0.945302546, alpha: 1),#colorLiteral(red: 0.8540275693, green: 0.8777510524, blue: 0.9234330058, alpha: 1)]
     
+    @IBOutlet weak var jsonViewTypeSegment: UISegmentedControl!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var jsonCollectionView: UICollectionView!
     var selectedIndexHandler : ((_ index: Int)->())?
@@ -59,7 +60,7 @@ class JsonCollectionViewController: UIViewController ,UICollectionViewDelegate,U
                             newJsonParams.heading = "\(key)"
                             newJsonParams.sortFilters = sortFilters
                             newJsonParams.list = ary
-                            let insertedNode = insertNewNode(newJsonParams, parent: "\(parent)")
+                            let _ = insertNewNode(newJsonParams, parent: "\(parent)")
 //                            expandAll(insertedNode, completion: { status in
 //                                print(status)
 //                            })
@@ -73,7 +74,7 @@ class JsonCollectionViewController: UIViewController ,UICollectionViewDelegate,U
                             var newJsonParams = pJsonViewParams
                             newJsonParams.heading = "\(key)"
                             newJsonParams.list = [dict]
-                            let insertedNode = insertNewNode(newJsonParams, parent: "\(key)")
+                            let _ = insertNewNode(newJsonParams, parent: "\(key)")
 //                            expandAll(insertedNode, completion:{ status in
 //                                    print(status)
 //                            })
@@ -113,6 +114,18 @@ class JsonCollectionViewController: UIViewController ,UICollectionViewDelegate,U
                 self.refresh()
             })
         }
+    }
+    @IBAction func segmentChanged(_ sender: Any) {
+        noOfFragments = 1
+        if self.jsonViewTypeSegment.selectedSegmentIndex == 0{
+            if UIScreen.main.bounds.size.width > 414{
+                noOfFragments = 3
+            }
+        }
+        else{
+            indexSelected = 0
+        }
+        self.refresh()
     }
     
     @IBAction func back(_ sender: Any) {
@@ -357,13 +370,25 @@ class JsonCollectionViewController: UIViewController ,UICollectionViewDelegate,U
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return jsonViewParamsList.count
+        if self.jsonViewTypeSegment.selectedSegmentIndex == 0{
+            return jsonViewParamsList.count
+        }
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : JsonCollectionViewCell = self.jsonCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! JsonCollectionViewCell
         let vc = getViewControllerAtIndex(index: indexPath.item)
-        
+        if jsonViewTypeSegment.selectedSegmentIndex == 1{
+            vc.viewType = .Text
+        }
+        else if jsonViewTypeSegment.selectedSegmentIndex == 2{
+            vc.viewType = .Tree
+        }
+        else{
+            vc.viewType = .Table
+        }
+        vc.showSelectedView()
         let allTree  = getAllChild(tree: (vc.jsonViewParams.tree))
         vc.isExpandedButton.isSelected = true
         if allTree.count>0{

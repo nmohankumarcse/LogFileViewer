@@ -31,7 +31,6 @@ class ScreenshotViewController: UIViewController {
         }
         self.imageContainerView?.frame = CGRect.init(origin: CGPoint.init(x:0,y:0), size: CGSize.init(width: width, height: height))
         scrollView.contentSize = self.imageContainerView.frame.size
-       
     }
     
     @IBAction func cancel(_ sender: Any) {
