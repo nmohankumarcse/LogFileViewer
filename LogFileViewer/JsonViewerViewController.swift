@@ -39,6 +39,7 @@ class JsonViewerViewController: UIViewController{
     var filterType : FilterType = .Filter
     var tableData : TableTreeNode?
     var selectedData = [TableTreeNode]()
+    var expandCollapseIndexpath : IndexPath = IndexPath.init(row: 0, section: 0)
     @IBOutlet weak var descriptorLabel: UITextView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var treeTableView: UITableView!
@@ -504,6 +505,7 @@ extension JsonViewerViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == treeTableView{
+            self.expandCollapseIndexpath = indexPath
             let node = selectedData[indexPath.row]
             expandOrCollapse(node: node)
         }
@@ -638,6 +640,7 @@ extension JsonViewerViewController:UITableViewDelegate,UITableViewDataSource{
     func expandOrCollapse(node : TableTreeNode){
         node.isExpanded = !node.isExpanded
         refreshTableData()
+        self.treeTableView.scrollToRow(at: self.expandCollapseIndexpath, at: .middle, animated: false)
     }
     
     func refreshTableData(){
@@ -653,7 +656,6 @@ extension JsonViewerViewController:UITableViewDelegate,UITableViewDataSource{
             }
         }
         self.treeTableView.reloadData()
-        
     }
 }
 

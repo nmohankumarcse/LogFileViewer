@@ -95,4 +95,685 @@
 ]
 }
 
+2018-03-01 23:19:57 {
+"planogramID": "786",
+"storeID": "42535",
+"gpID":"121311",
+"planogramStatus": "SUB",
+"noOfDoors": "1",
+"doorFlow": [
+{
+"doorID": "0",
+"displaySequence": "1",
+"noOfShelfs": "7",
+"shelfFlow": [
+{
+"shelfID": "0",
+"displaySequence": "1",
+"noOfFacings": "5",
+"facingsFlow": [
+{
+"facingID": "0",
+"displaySequence": "1",
+"productID": "0",
+"packageSize": "24",
+"packageSizeUnit": "oz",
+"upcCode": "0"
+},
+{
+"facingID": "1",
+"displaySequence": "2",
+"productID": "98798",
+"packageSize": "15.2",
+"packageSizeUnit": "oz",
+"upcCode": "689790"
+},
+{
+"facingID": "2",
+"displaySequence": "3",
+"productID": "197596",
+"packageSize": "20",
+"packageSizeUnit": "oz",
+"upcCode": "1379580"
+},
+{
+"facingID": "3",
+"displaySequence": "4",
+"productID": "296394",
+"packageSize": "16",
+"packageSizeUnit": "oz",
+"upcCode": "2069370"
+},
+{
+"facingID": "4",
+"displaySequence": "5",
+"productID": "395192",
+"packageSize": "20",
+"packageSizeUnit": "oz",
+"upcCode": "2759160"
+}
+]
+},
+{
+"shelfID": "1",
+"displaySequence": "2",
+"noOfFacings": "5",
+"facingsFlow": [
+{
+"facingID": "0",
+"displaySequence": "1",
+"productID": "0",
+"packageSize": "14",
+"packageSizeUnit": "oz",
+"upcCode": "0"
+},
+{
+"facingID": "1",
+"displaySequence": "2",
+"productID": "98798",
+"packageSize": "10.1",
+"packageSizeUnit": "oz",
+"upcCode": "689790"
+},
+{
+"facingID": "2",
+"displaySequence": "3",
+"productID": "197596",
+"packageSize": "32",
+"packageSizeUnit": "oz",
+"upcCode": "1379580"
+},
+{
+"facingID": "3",
+"displaySequence": "4",
+"productID": "296394",
+"packageSize": "14",
+"packageSizeUnit": "oz",
+"upcCode": "2069370"
+},
+{
+"facingID": "4",
+"displaySequence": "5",
+"productID": "395192",
+"packageSize": "11",
+"packageSizeUnit": "oz",
+"upcCode": "2759160"
+}
+]
+},
+{
+"shelfID": "2",
+"displaySequence": "3",
+"noOfFacings": "5",
+"facingsFlow": [
+{
+"facingID": "0",
+"displaySequence": "1",
+"productID": "0",
+"packageSize": "24",
+"packageSizeUnit": "oz",
+"upcCode": "0"
+},
+{
+"facingID": "1",
+"displaySequence": "2",
+"productID": "98798",
+"packageSize": "11",
+"packageSizeUnit": "oz",
+"upcCode": "689790"
+},
+{
+"facingID": "2",
+"displaySequence": "3",
+"productID": "197596",
+"packageSize": "13.7",
+"packageSizeUnit": "oz",
+"upcCode": "1379580"
+},
+{
+"facingID": "3",
+"displaySequence": "4",
+"productID": "296394",
+"packageSize": "13.7",
+"packageSizeUnit": "oz",
+"upcCode": "2069370"
+},
+{
+"facingID": "4",
+"displaySequence": "5",
+"productID": "395192",
+"packageSize": "13.7",
+"packageSizeUnit": "oz",
+"upcCode": "2759160"
+}
+]
+},
+{
+"shelfID": "3",
+"displaySequence": "4",
+"noOfFacings": "5",
+"facingsFlow": [
+{
+"facingID": "0",
+"displaySequence": "1",
+"productID": "0",
+"packageSize": "24",
+"packageSizeUnit": "oz",
+"upcCode": "0"
+},
+{
+"facingID": "1",
+"displaySequence": "2",
+"productID": "98798",
+"packageSize": "24",
+"packageSizeUnit": "oz",
+"upcCode": "689790"
+},
+{
+"facingID": "2",
+"displaySequence": "3",
+"productID": "197596",
+"packageSize": "10.1",
+"packageSizeUnit": "oz",
+"upcCode": "1379580"
+},
+{
+"facingID": "3",
+"displaySequence": "4",
+"productID": "296394",
+"packageSize": "20",
+"packageSizeUnit": "oz",
+"upcCode": "2069370"
+},
+{
+"facingID": "4",
+"displaySequence": "5",
+"productID": "395192",
+"packageSize": "15.2",
+"packageSizeUnit": "oz",
+"upcCode": "2759160"
+}
+]
+},
+{
+"shelfID": "4",
+"displaySequence": "5",
+"noOfFacings": "5",
+"facingsFlow": [
+{
+"facingID": "0",
+"displaySequence": "1",
+"productID": "0",
+"packageSize": "28",
+"packageSizeUnit": "oz",
+"upcCode": "0"
+},
+{
+"facingID": "1",
+"displaySequence": "2",
+"productID": "98798",
+"packageSize": "13.7",
+"packageSizeUnit": "oz",
+"upcCode": "689790"
+},
+{
+"facingID": "2",
+"displaySequence": "3",
+"productID": "197596",
+"packageSize": "16",
+"packageSizeUnit": "oz",
+"upcCode": "1379580"
+},
+{
+"facingID": "3",
+"displaySequence": "4",
+"productID": "296394",
+"packageSize": "14",
+"packageSizeUnit": "oz",
+"upcCode": "2069370"
+},
+{
+"facingID": "4",
+"displaySequence": "5",
+"productID": "395192",
+"packageSize": "15.2",
+"packageSizeUnit": "oz",
+"upcCode": "2759160"
+}
+]
+},
+{
+"shelfID": "5",
+"displaySequence": "6",
+"noOfFacings": "5",
+"facingsFlow": [
+{
+"facingID": "0",
+"displaySequence": "1",
+"productID": "0",
+"packageSize": "15.2",
+"packageSizeUnit": "oz",
+"upcCode": "0"
+},
+{
+"facingID": "1",
+"displaySequence": "2",
+"productID": "98798",
+"packageSize": "28",
+"packageSizeUnit": "oz",
+"upcCode": "689790"
+},
+{
+"facingID": "2",
+"displaySequence": "3",
+"productID": "197596",
+"packageSize": "32",
+"packageSizeUnit": "oz",
+"upcCode": "1379580"
+},
+{
+"facingID": "3",
+"displaySequence": "4",
+"productID": "296394",
+"packageSize": "12",
+"packageSizeUnit": "oz",
+"upcCode": "2069370"
+},
+{
+"facingID": "4",
+"displaySequence": "5",
+"productID": "395192",
+"packageSize": "12",
+"packageSizeUnit": "oz",
+"upcCode": "2759160"
+}
+]
+},
+{
+"shelfID": "6",
+"displaySequence": "7",
+"noOfFacings": "5",
+"facingsFlow": [
+{
+"facingID": "0",
+"displaySequence": "1",
+"productID": "0",
+"packageSize": "11",
+"packageSizeUnit": "oz",
+"upcCode": "0"
+},
+{
+"facingID": "1",
+"displaySequence": "2",
+"productID": "98798",
+"packageSize": "11",
+"packageSizeUnit": "oz",
+"upcCode": "689790"
+},
+{
+"facingID": "2",
+"displaySequence": "3",
+"productID": "197596",
+"packageSize": "24",
+"packageSizeUnit": "oz",
+"upcCode": "1379580"
+},
+{
+"facingID": "3",
+"displaySequence": "4",
+"productID": "296394",
+"packageSize": "14",
+"packageSizeUnit": "oz",
+"upcCode": "2069370"
+},
+{
+"facingID": "4",
+"displaySequence": "5",
+"productID": "395192",
+"packageSize": "14",
+"packageSizeUnit": "oz",
+"upcCode": "2759160"
+}
+]
+}
+]
+},
+{
+"doorID": "0",
+"displaySequence": "1",
+"noOfShelfs": "7",
+"shelfFlow": [
+{
+"shelfID": "0",
+"displaySequence": "1",
+"noOfFacings": "5",
+"facingsFlow": [
+{
+"facingID": "0",
+"displaySequence": "1",
+"productID": "0",
+"packageSize": "18.5",
+"packageSizeUnit": "oz",
+"upcCode": "0"
+},
+{
+"facingID": "1",
+"displaySequence": "2",
+"productID": "98798",
+"packageSize": "11",
+"packageSizeUnit": "oz",
+"upcCode": "689790"
+},
+{
+"facingID": "2",
+"displaySequence": "3",
+"productID": "197596",
+"packageSize": "15.2",
+"packageSizeUnit": "oz",
+"upcCode": "1379580"
+},
+{
+"facingID": "3",
+"displaySequence": "4",
+"productID": "296394",
+"packageSize": "16",
+"packageSizeUnit": "oz",
+"upcCode": "2069370"
+},
+{
+"facingID": "4",
+"displaySequence": "5",
+"productID": "395192",
+"packageSize": "14",
+"packageSizeUnit": "oz",
+"upcCode": "2759160"
+}
+]
+},
+{
+"shelfID": "1",
+"displaySequence": "2",
+"noOfFacings": "5",
+"facingsFlow": [
+{
+"facingID": "0",
+"displaySequence": "1",
+"productID": "0",
+"packageSize": "32",
+"packageSizeUnit": "oz",
+"upcCode": "0"
+},
+{
+"facingID": "1",
+"displaySequence": "2",
+"productID": "98798",
+"packageSize": "13.7",
+"packageSizeUnit": "oz",
+"upcCode": "689790"
+},
+{
+"facingID": "2",
+"displaySequence": "3",
+"productID": "197596",
+"packageSize": "32",
+"packageSizeUnit": "oz",
+"upcCode": "1379580"
+},
+{
+"facingID": "3",
+"displaySequence": "4",
+"productID": "296394",
+"packageSize": "16.9",
+"packageSizeUnit": "oz",
+"upcCode": "2069370"
+},
+{
+"facingID": "4",
+"displaySequence": "5",
+"productID": "395192",
+"packageSize": "18.5",
+"packageSizeUnit": "oz",
+"upcCode": "2759160"
+}
+]
+},
+{
+"shelfID": "2",
+"displaySequence": "3",
+"noOfFacings": "5",
+"facingsFlow": [
+{
+"facingID": "0",
+"displaySequence": "1",
+"productID": "0",
+"packageSize": "11",
+"packageSizeUnit": "oz",
+"upcCode": "0"
+},
+{
+"facingID": "1",
+"displaySequence": "2",
+"productID": "98798",
+"packageSize": "14",
+"packageSizeUnit": "oz",
+"upcCode": "689790"
+},
+{
+"facingID": "2",
+"displaySequence": "3",
+"productID": "197596",
+"packageSize": "16",
+"packageSizeUnit": "oz",
+"upcCode": "1379580"
+},
+{
+"facingID": "3",
+"displaySequence": "4",
+"productID": "296394",
+"packageSize": "16",
+"packageSizeUnit": "oz",
+"upcCode": "2069370"
+},
+{
+"facingID": "4",
+"displaySequence": "5",
+"productID": "395192",
+"packageSize": "20",
+"packageSizeUnit": "oz",
+"upcCode": "2759160"
+}
+]
+},
+{
+"shelfID": "3",
+"displaySequence": "4",
+"noOfFacings": "5",
+"facingsFlow": [
+{
+"facingID": "0",
+"displaySequence": "1",
+"productID": "0",
+"packageSize": "15.2",
+"packageSizeUnit": "oz",
+"upcCode": "0"
+},
+{
+"facingID": "1",
+"displaySequence": "2",
+"productID": "98798",
+"packageSize": "15.2",
+"packageSizeUnit": "oz",
+"upcCode": "689790"
+},
+{
+"facingID": "2",
+"displaySequence": "3",
+"productID": "197596",
+"packageSize": "28",
+"packageSizeUnit": "oz",
+"upcCode": "1379580"
+},
+{
+"facingID": "3",
+"displaySequence": "4",
+"productID": "296394",
+"packageSize": "24",
+"packageSizeUnit": "oz",
+"upcCode": "2069370"
+},
+{
+"facingID": "4",
+"displaySequence": "5",
+"productID": "395192",
+"packageSize": "18.5",
+"packageSizeUnit": "oz",
+"upcCode": "2759160"
+}
+]
+},
+{
+"shelfID": "4",
+"displaySequence": "5",
+"noOfFacings": "5",
+"facingsFlow": [
+{
+"facingID": "0",
+"displaySequence": "1",
+"productID": "0",
+"packageSize": "16",
+"packageSizeUnit": "oz",
+"upcCode": "0"
+},
+{
+"facingID": "1",
+"displaySequence": "2",
+"productID": "98798",
+"packageSize": "16",
+"packageSizeUnit": "oz",
+"upcCode": "689790"
+},
+{
+"facingID": "2",
+"displaySequence": "3",
+"productID": "197596",
+"packageSize": "32",
+"packageSizeUnit": "oz",
+"upcCode": "1379580"
+},
+{
+"facingID": "3",
+"displaySequence": "4",
+"productID": "296394",
+"packageSize": "32",
+"packageSizeUnit": "oz",
+"upcCode": "2069370"
+},
+{
+"facingID": "4",
+"displaySequence": "5",
+"productID": "395192",
+"packageSize": "24",
+"packageSizeUnit": "oz",
+"upcCode": "2759160"
+}
+]
+},
+{
+"shelfID": "5",
+"displaySequence": "6",
+"noOfFacings": "5",
+"facingsFlow": [
+{
+"facingID": "0",
+"displaySequence": "1",
+"productID": "0",
+"packageSize": "16",
+"packageSizeUnit": "oz",
+"upcCode": "0"
+},
+{
+"facingID": "1",
+"displaySequence": "2",
+"productID": "98798",
+"packageSize": "16.9",
+"packageSizeUnit": "oz",
+"upcCode": "689790"
+},
+{
+"facingID": "2",
+"displaySequence": "3",
+"productID": "197596",
+"packageSize": "12",
+"packageSizeUnit": "oz",
+"upcCode": "1379580"
+},
+{
+"facingID": "3",
+"displaySequence": "4",
+"productID": "296394",
+"packageSize": "20",
+"packageSizeUnit": "oz",
+"upcCode": "2069370"
+},
+{
+"facingID": "4",
+"displaySequence": "5",
+"productID": "395192",
+"packageSize": "13.7",
+"packageSizeUnit": "oz",
+"upcCode": "2759160"
+}
+]
+},
+{
+"shelfID": "6",
+"displaySequence": "7",
+"noOfFacings": "5",
+"facingsFlow": [
+{
+"facingID": "0",
+"displaySequence": "1",
+"productID": "0",
+"packageSize": "14",
+"packageSizeUnit": "oz",
+"upcCode": "0"
+},
+{
+"facingID": "1",
+"displaySequence": "2",
+"productID": "98798",
+"packageSize": "32",
+"packageSizeUnit": "oz",
+"upcCode": "689790"
+},
+{
+"facingID": "2",
+"displaySequence": "3",
+"productID": "197596",
+"packageSize": "24",
+"packageSizeUnit": "oz",
+"upcCode": "1379580"
+},
+{
+"facingID": "3",
+"displaySequence": "4",
+"productID": "296394",
+"packageSize": "12",
+"packageSizeUnit": "oz",
+"upcCode": "2069370"
+},
+{
+"facingID": "4",
+"displaySequence": "5",
+"productID": "395192",
+"packageSize": "24",
+"packageSizeUnit": "oz",
+"upcCode": "2759160"
+}
+]
+}
+]
+}
+]
+}
 
